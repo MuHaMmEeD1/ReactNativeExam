@@ -80,23 +80,24 @@ const Home = () => {
         </View>
       </View>
 
-      <View className="items-center">
-        {poster != '' ? (
-          <Image
-            src={`${IMG_URL}${movies[0].poster_path}`}
-            style={{width: 340, height: 440, borderRadius: 5}}></Image>
-        ) : (
-          <Text>Not Poster</Text>
-        )}
-        <View className="relative -top-[54px] flex-row gap-[10px]">
-          <TouchableOpacity
-            onPress={() => {
-              navigation.navigate('FilimDetail', {
-                id: movies[0].id,
-                type: movies[0].media_type,
-              });
-            }}
-            className="
+      <ScrollView className="relative">
+        <View className="items-center">
+          {poster != '' ? (
+            <Image
+              src={`${IMG_URL}${movies[0].poster_path}`}
+              style={{width: 340, height: 440, borderRadius: 5}}></Image>
+          ) : (
+            <Text>Not Poster</Text>
+          )}
+          <View className="relative -top-[54px] flex-row gap-[10px]">
+            <TouchableOpacity
+              onPress={() => {
+                navigation.navigate('FilimDetail', {
+                  id: movies[0].id,
+                  type: movies[0].media_type,
+                });
+              }}
+              className="
           bg-[#FFFFFF] 
           w-[160px] 
           h-[48px] 
@@ -104,15 +105,15 @@ const Home = () => {
           justify-center
           items-center
           ">
-            <Text className="text-black text-[17px]  font-extrabold ">
-              Play
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => {
-              setCheckMoreInfo(prevState => !prevState);
-            }}
-            className="
+              <Text className="text-black text-[17px]  font-extrabold ">
+                Play
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => {
+                setCheckMoreInfo(prevState => !prevState);
+              }}
+              className="
           bg-[#515451] 
           w-[160px] 
           h-[48px] 
@@ -121,41 +122,46 @@ const Home = () => {
           items-center
         
           ">
-            <Text className="text-white text-[17px] font-extrabold ">
-              More Info
-            </Text>
-          </TouchableOpacity>
+              <Text className="text-white text-[17px] font-extrabold ">
+                More Info
+              </Text>
+            </TouchableOpacity>
+          </View>
+
+          {checkMoreInfo ? (
+            <View className="absolute top-[340px] h-[46px]">
+              <FlatList
+                contentContainerStyle={{gap: 10, paddingBottom: 10}}
+                data={genres}
+                horizontal
+                keyExtractor={(item, index) => index.toString()}
+                renderItem={({item}) => {
+                  return (
+                    <Text className="text-white text-[12px] font-bold bg-[#27272A] p-[10px] rounded-[4] border-[2px] border-white">
+                      {item.name}
+                    </Text>
+                  );
+                }}
+              />
+            </View>
+          ) : (
+            <></>
+          )}
         </View>
 
-        {checkMoreInfo ? (
-          <View className="absolute top-[340px] h-[46px]">
-            <FlatList
-              contentContainerStyle={{gap: 10, paddingBottom: 10}}
-              data={genres}
-              horizontal
-              keyExtractor={(item, index) => index.toString()}
-              renderItem={({item}) => {
-                return (
-                  <Text className="text-white text-[12px] font-bold bg-[#27272A] p-[10px] rounded-[4] border-[2px] border-white">
-                    {item.name}
-                  </Text>
-                );
-              }}
-            />
-          </View>
-        ) : (
-          <></>
-        )}
-      </View>
+        <View className="relative -top-[20px]">
+          <FilimList
+            data={movies}
+            title={'Trending Movies'}
+            media_type={'movie'}
+          />
 
-      <ScrollView className="relative -top-[25px]">
-        <FilimList
-          data={movies}
-          title={'Trending Movies'}
-          media_type={'movie'}
-        />
-
-        <FilimList data={shows} title={'Popular TV Shows'} media_type={'tv'} />
+          <FilimList
+            data={shows}
+            title={'Popular TV Shows'}
+            media_type={'tv'}
+          />
+        </View>
       </ScrollView>
     </SafeAreaView>
   );

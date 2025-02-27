@@ -1,12 +1,17 @@
-import React from 'react'
-import HomeScreen from "../screens/home/HomeScreen"
+import React from 'react';
+import Home from '../screens/home/Home';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import FilimDetail from '../screens/filimdetail/FilimDetail';
 
 const HomeStack = () => {
-  return (
-   <Stack.Navigator screenOptions={{ headerShown: false }}>
-            <Stack.Screen name="Home" component={HomeScreen} />
-        </Stack.Navigator>
-  )
-}
+  const Stack = createNativeStackNavigator();
 
-export default HomeStack
+  return (
+    <Stack.Navigator screenOptions={{headerShown: false}}>
+      <Stack.Screen name="Home" component={Home} />
+      <Stack.Screen name="FilimDetail" component={FilimDetail} />
+    </Stack.Navigator>
+  );
+};
+
+export default HomeStack;

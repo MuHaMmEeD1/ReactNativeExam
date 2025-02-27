@@ -33,8 +33,6 @@ const FilimDetail = () => {
 
       setGenres(response.data.content.genres);
 
-      console.log(data);
-
       setData(response.data.content);
     } catch (error) {
       console.log(error);
@@ -77,11 +75,6 @@ const FilimDetail = () => {
     getSimilarData();
   }, [id, type]);
 
-  console.log('\n');
-  console.log(id);
-  console.log(type);
-  console.log('\n');
-
   return (
     <SafeAreaView className="bg-[#000000] flex-1">
       <View className="gap-[10px]">
@@ -91,21 +84,23 @@ const FilimDetail = () => {
           {type == 'movie' ? data.title : data.name}
         </Text>
 
-        <FlatList
-          style={{paddingLeft: 15}}
-          contentContainerStyle={{gap: 10, paddingBottom: 10}}
-          data={genres}
-          horizontal
-          keyExtractor={(item, index) => index.toString()}
-          renderItem={({item}) => {
-            console.log(item);
-            return (
-              <Text className="text-white text-[12px] bg-[#27272A] p-[10px] rounded-[4]">
-                {item.name}
-              </Text>
-            );
-          }}
-        />
+        <View
+          style={{
+            paddingLeft: 20,
+            paddingBottom: 10,
+            maxWidth: 360,
+            flexWrap: 'wrap',
+            flexDirection: 'row',
+            gap: 10,
+          }}>
+          {genres.map((item, index) => (
+            <Text
+              key={index}
+              className="text-white text-[12px] bg-[#27272A] p-[10px] rounded-[4]">
+              {item.name}
+            </Text>
+          ))}
+        </View>
       </View>
       <ScrollView>
         <View className="gap-[10px]">

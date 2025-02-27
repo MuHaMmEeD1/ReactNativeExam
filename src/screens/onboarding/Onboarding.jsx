@@ -44,12 +44,20 @@ const Onboarding = () => {
 
   return (
     <SafeAreaView className="bg-[#000000] flex-1">
-      <View className="p-[20px] pt-[30px] gap-[20px] flex-1 justify-start">
-        <View className="items-center">
+      <View className="p-[20px] pt-[0px] gap-[20px] flex-1 justify-start">
+        <View
+          style={{
+            position: 'absolute',
+            top: 30,
+            left: '56%',
+            transform: [{translateX: -50}],
+            alignItems: 'center',
+            zIndex: 2,
+          }}>
           <NetflixSvg />
         </View>
 
-        <Text className="absolute pt-[15px] text-[14px] top-0 right-0 mr-[40px] mt-[20px] text-white">
+        <Text className="absolute pt-[15px] text-[14px] top-0 right-0 mr-[40px] mt-[20px] text-white z-[2]">
           Help
         </Text>
 
@@ -62,17 +70,20 @@ const Onboarding = () => {
                 <View className="items-center pt-[30px]">
                   {index === 3 ? (
                     <>
+                      <View className="h-[750px]"></View>
                       <Image
                         source={item.image}
                         style={{
-                          position: 'relative',
-                          bottom: 30,
-                          height: 750,
+                          position: 'absolute',
+                          top: 0,
+                          height: 770,
+                          width: 360,
+                          zIndex: 1,
                         }}
                       />
 
-                      <View className="relative -top-[550px]">
-                        <View className=" items-center pt-[10px] z-10">
+                      <View className="relative -top-[550px] pt-[74px]">
+                        <View className=" items-center pt-[20px] z-10">
                           <Text className="text-white font-bold text-[24px]">
                             {item.title}
                           </Text>
@@ -80,7 +91,7 @@ const Onboarding = () => {
                             {item.description}
                           </Text>
                         </View>
-                        <View className="flex-row gap-[22px] justify-center pt-[210px] pb-[40px]">
+                        <View className="flex-row gap-[22px] justify-center pt-[230px] pb-[40px] z-[2]">
                           {[0, 1, 2, 3].map(indicatorIndex => (
                             <View
                               key={indicatorIndex}
@@ -94,7 +105,7 @@ const Onboarding = () => {
                           ))}
                         </View>
                         <TouchableOpacity
-                          className="bg-[#E50914] px-[20px] py-[10px] w-[360] rounded-[2px] items-center"
+                          className="bg-[#E50914] px-[20px] py-[10px] w-[360] rounded-[2px] items-center z-[2]"
                           onPress={() => {
                             setPageIndex(prevState =>
                               Math.min(prevState + 1, pages.length - 1),
@@ -112,11 +123,12 @@ const Onboarding = () => {
                     </>
                   ) : (
                     <>
+                      <View className="pt-[74px]"></View>
                       <Image
                         source={item.image}
                         style={{width: 200, height: 200}}
                       />
-                      <View className="items-center pt-[10px] z-10">
+                      <View className="items-center pt-[20px] z-10">
                         <Text className="text-white font-bold text-[24px]">
                           {item.title}
                         </Text>
@@ -124,7 +136,7 @@ const Onboarding = () => {
                           {item.description}
                         </Text>
                       </View>
-                      <View className="flex-row gap-[22px] justify-center pt-[210px] pb-[40px]">
+                      <View className="flex-row gap-[22px] justify-center pt-[230px] pb-[40px]">
                         {[0, 1, 2, 3].map(indicatorIndex => (
                           <View
                             key={indicatorIndex}

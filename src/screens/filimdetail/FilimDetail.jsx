@@ -5,13 +5,14 @@ import {
   SafeAreaView,
   FlatList,
   ScrollView,
+  TouchableOpacity,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
 import axios from 'axios';
 import YoutubePlayer from 'react-native-youtube-iframe';
 import {useMMKVString} from 'react-native-mmkv';
 import {IP_URL, IMG_URL} from '@env';
-import {useRoute} from '@react-navigation/native';
+import {useNavigation, useRoute} from '@react-navigation/native';
 import FilimList from '../../common/FilimList';
 
 const FilimDetail = () => {
@@ -22,6 +23,8 @@ const FilimDetail = () => {
   const [genres, setGenres] = useState([]);
   const [trailerKey, setTrailerKey] = useState('');
   const [token, setToken] = useMMKVString('token');
+
+  const navigation = useNavigation();
 
   const getData = async () => {
     try {
@@ -80,9 +83,20 @@ const FilimDetail = () => {
       <View className="gap-[10px]">
         <YoutubePlayer height={240} videoId={trailerKey} />
 
-        <Text className="text-white text-[36px] pl-[15px]">
-          {type == 'movie' ? data.title : data.name}
-        </Text>
+        <View className="flex-row items-center justify-between px-4">
+          <Text className="text-white text-[36px]">
+            {type === 'movie' ? data.title : data.name}
+          </Text>
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate('Home');
+            }}>
+            <Image
+              source={require('../../../assets/images/home.png')}
+              style={{width: 40, height: 40, marginRight: 20, marginTop: 10}}
+            />
+          </TouchableOpacity>
+        </View>
 
         <View
           style={{
